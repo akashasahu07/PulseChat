@@ -1,0 +1,358 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    background: #e5ddd5;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background: #111b21;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .chat-container {
+    background: #0b141a;
+}
+
+.chat-header {
+    background: #075e54;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .chat-header {
+    background: #202c33;
+}
+
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    list-style: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="chat-bg" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="%23f0f0f0" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23chat-bg)"/></svg>');
+    transition: all 0.3s ease;
+}
+
+body.dark-mode #messages {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="chat-bg-dark" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="%23333" opacity="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23chat-bg-dark)"/></svg>');
+}
+
+.message {
+    display: flex;
+    margin-bottom: 15px;
+    max-width: 70%;
+    align-items: flex-end;
+    gap: 8px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.message.sent {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+    margin-left: auto;
+}
+
+.message.received {
+    align-self: flex-start;
+    flex-direction: row;
+    margin-right: auto;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #25d366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.message.received .user-avatar {
+    background: #128c7e;
+}
+
+body.dark-mode .user-avatar {
+    background: #00a884;
+}
+
+body.dark-mode .message.received .user-avatar {
+    background: #005c4b;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.message-bubble {
+    padding: 8px 12px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.message.sent .message-bubble {
+    background: #dcf8c6;
+    color: #000;
+    border-bottom-right-radius: 2px;
+}
+
+.message.received .message-bubble {
+    background: #ffffff;
+    color: #000;
+    border-bottom-left-radius: 2px;
+}
+
+body.dark-mode .message.sent .message-bubble {
+    background: #005c4b;
+    color: #e9edef;
+}
+
+body.dark-mode .message.received .message-bubble {
+    background: #202c33;
+    color: #e9edef;
+}
+
+.message-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+}
+
+.message.sent .message-bubble::before {
+    right: -8px;
+    border-left-color: #dcf8c6;
+    border-right: none;
+}
+
+.message.received .message-bubble::before {
+    left: -8px;
+    border-right-color: #ffffff;
+    border-left: none;
+}
+
+body.dark-mode .message.sent .message-bubble::before {
+    border-left-color: #005c4b;
+}
+
+body.dark-mode .message.received .message-bubble::before {
+    border-right-color: #202c33;
+}
+
+.username {
+    font-size: 12px;
+    font-weight: 600;
+    color: #25d366;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.message.sent .username {
+    color: #128c7e;
+}
+
+body.dark-mode .username {
+    color: #00a884;
+}
+
+body.dark-mode .message.sent .username {
+    color: #25d366;
+}
+
+.message-text {
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.message-time {
+    font-size: 11px;
+    color: #666;
+    text-align: right;
+    margin-top: 2px;
+    opacity: 0.8;
+}
+
+.message.received .message-time {
+    text-align: left;
+}
+
+body.dark-mode .message-time {
+    color: #8696a0;
+}
+
+.chat-input {
+    padding: 15px 20px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .chat-input {
+    background: #202c33;
+    border-top-color: #3c4043;
+}
+
+#messageInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode #messageInput {
+    background: #2a3942;
+    color: #e9edef;
+}
+
+#messageInput::placeholder {
+    color: #999;
+}
+
+body.dark-mode #messageInput::placeholder {
+    color: #8696a0;
+}
+
+.send-button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #075e54;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.send-button:hover {
+    background: #128c7e;
+    transform: scale(1.05);
+}
+
+body.dark-mode .send-button {
+    background: #00a884;
+}
+
+body.dark-mode .send-button:hover {
+    background: #25d366;
+}
+
+/* Scrollbar styling */
+#messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+body.dark-mode #messages::-webkit-scrollbar-thumb {
+    background: #54656f;
+}
+
+/* Animation for new messages */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 100vh;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .message {
+        max-width: 85%;
+    }
+
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .chat-header {
+        padding: 12px 15px;
+        font-size: 16px;
+    }
+
+    #messages {
+        padding: 15px;
+    }
+
+    .chat-input {
+        padding: 12px 15px;
+    }
+}
