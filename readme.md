@@ -175,7 +175,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Your Name**
 - GitHub: [@akashasahu07](https://github.com/akashasahu07)
-- LinkedIn: [/in/akashasashu07](https://linkedin.com/in/akashasahu07)
+- LinkedIn: [/in/akashasahu07](https://linkedin.com/in/akashasahu07)
 
 ## 🙏 Acknowledgments
 
